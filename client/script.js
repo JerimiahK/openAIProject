@@ -83,15 +83,16 @@ const handleSubmit = async (e) => {
     loader(messageDiv);
 
     // Fetches data from server
-    const response = await fetch('http://localhost:5000', {
+    const response = await fetch("http://localhost:5000", {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json',
+            'Content-Type': 'application/json'
         },
         body: JSON.stringify({
             prompt: data.get('prompt')
         })
     })
+    console.log(response);
 
     clearInterval(loadInterval);
     messageDiv.innerHTML = '';
@@ -100,7 +101,7 @@ const handleSubmit = async (e) => {
         const data = await response.json();
         const parsedData = data.bot.trim();
 
-        console.log(parsedData);
+        // console.log(parsedData);
 
         typeText(messageDiv, parsedData);
     } else {
@@ -115,7 +116,7 @@ const handleSubmit = async (e) => {
 // Allows user to press enter to submit
 form.addEventListener('submit', handleSubmit);
 form.addEventListener('keyup', (e) => {
-    if(e.keyCode === 13) {
+    if(e.key === 'Enter') {
         handleSubmit(e);
     }
 })
